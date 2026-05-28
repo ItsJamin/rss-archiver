@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title or "Untitled" }}{% endblock %}
+
+{% block content %}
+    <article class="full-article">
+        <header class="article-header">
+            <h2>{{ article.title or "[Untitled]" }}</h2>
+            <p class="article-meta">
+                {% if article.publish_date %}
+                    <span class="publish-date">{{ article.publish_date.strftime('%B %d, %Y') }}</span>
+                {% endif %}
+                {% if article.author %}
+                    <span class="author">by {{ article.author }}</span>
+                {% endif %}
+                <span class="feed-link">
+                    from <a href="{{ url_for('web.feed_detail', feed_id=article.feed_id) }}">{{ article.feed.title or article.feed.url }}</a>
+                </span>
+                <span class="version">Version {{ article.version }}</span>
+            </p>
+        </header>
+
+        <div class="article-content">
+            {{ content|safe }}
+        </div>
+
+        <footer class="article-footer">
+            <p>
+                <a href="{{ article.url }}" target="_blank" rel="noopener noreferrer">Original Article</a>
+                | Fetched: {{ article.fetched_at.strftime('%Y-%m-%d %H:%M') }}
+            </p>
+        </footer>
+    </article>
+{% endblock %}

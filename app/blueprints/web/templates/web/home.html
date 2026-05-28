@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}All Feeds{% endblock %}
+
+{% block content %}
+    <h2>Registered Feeds</h2>
+    <div class="feed-list">
+        {% for feed in feeds %}
+            <div class="feed-card">
+                <h3><a href="{{ url_for('web.feed_detail', feed_id=feed.id) }}">{{ feed.title or feed.url }}</a></h3>
+                <p class="feed-description">{{ feed.description or "No description available." }}</p>
+                <p class="feed-meta">
+                    <span class="article-count">{{ feed.articles|length }} articles</span>
+                    <span class="feed-url">{{ feed.url }}</span>
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

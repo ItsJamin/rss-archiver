@@ -3,26 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Flask App{% endblock %}</title>
-    
-    <!-- Styles can be extended later -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}RSS Archiver{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <header class="masthead">
+        <h1>RSS Archiver</h1>
+    </header>
 
-    <div id="wrapper">
-        <header>
-            <h1>{% block header %}Flask Starter{% endblock %}</h1>
-        </header>
-
-        <main>
-            {% block content %}{% endblock %}
-        </main>
-
-        <footer>
-            <p>My Flask App</p>
-        </footer>
-    </div>
-
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
 </body>
-</html>
+</html> 

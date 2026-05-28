@@ -1,0 +1,245 @@
+/* === BASE STYLES === */
+:root {
+    --primary: #dadada;    
+    --secondary: #f9f9f9;  
+    --accent: #000000;
+    --text: #333333;
+    --text-light: #333333;
+    --border: #dddddd;
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1.7;
+    color: var(--text);
+    background-color: var(--secondary);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* === MASTHEAD (Header) === */
+.masthead {
+    text-align: center;
+}
+
+.masthead h1 {
+    margin: 0;
+    font-size: 2.8em;
+}
+
+/* === FOOTER === */
+.footer {
+    background-color: var(--primary);
+    color: #aaaaaa;
+    text-align: center;
+    padding: 25px;
+    margin-top: 50px;
+    font-size: 0.9em;
+    border-top: 1px solid var(--border);
+}
+
+/* === FEED LIST (Homepage) === */
+.feed-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.feed-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 25px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s;
+}
+
+.feed-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.feed-card h3 {
+    margin-top: 0;
+    color: var(--primary);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    font-size: 1.3em;
+}
+
+.feed-card h3 a {
+    color: var(--primary);
+}
+
+.feed-card h3 a:hover {
+    color: var(--accent);
+}
+
+.feed-description {
+    color: var(--text-light);
+    font-style: italic;
+    margin: 12px 0;
+}
+
+.feed-meta {
+    font-size: 0.85em;
+    color: var(--text-light);
+    margin: 10px 0 0 0;
+}
+
+.article-count {
+    font-weight: bold;
+    margin-right: 15px;
+    color: var(--primary);
+}
+
+.feed-url {
+    font-size: 0.75em;
+    word-break: break-all;
+    color: var(--text-light);
+}
+
+/* === ARTICLE LIST (Feed Detail) === */
+.article-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 30px;
+}
+
+.article-summary {
+    background: white;
+    padding: 25px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.article-summary h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: var(--primary);
+}
+
+.article-summary h3 a {
+    color: var(--primary);
+}
+
+.article-summary h3 a:hover {
+    color: var(--accent);
+}
+
+.article-meta {
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin: 8px 0 15px 0;
+}
+
+.article-meta span {
+    margin-right: 15px;
+}
+
+.article-snippet {
+    color: var(--text);
+    margin: 0 0 15px 0;
+    font-size: 0.95em;
+}
+
+.read-more {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9em;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* === FULL ARTICLE === */
+.full-article {
+    background: white;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
+}
+
+.article-header h2 {
+    margin-top: 0;
+    font-size: 2.2em;
+    color: var(--primary);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.article-meta {
+    font-size: 1em;
+    color: var(--text-light);
+    margin: 12px 0 25px 0;
+}
+
+.article-meta span {
+    margin-right: 20px;
+}
+
+.article-content {
+    margin: 25px 0;
+    line-height: 1.9;
+    text-align: justify;
+    font-size: 1.05em;
+}
+
+.article-content p {
+    margin: 0 0 20px 0;
+}
+
+.article-content p:first-letter {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.article-footer {
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.9em;
+    color: var(--text-light);
+}
+
+.article-footer a {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+    .feed-list,
+    .article-list {
+        grid-template-columns: 1fr;
+    }
+
+    .full-article {
+        padding: 25px;
+    }
+
+    .masthead h1 {
+        font-size: 2em;
+    }
+
+    .article-header h2 {
+        font-size: 1.8em;
+    }
+}
