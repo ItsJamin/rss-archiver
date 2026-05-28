@@ -17,5 +17,5 @@ edit .env if needed to change e.g. the fetch-schedule
 
 ```
 docker compose build
-docker compose up
+docker compose up -d
 ```
