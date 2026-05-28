@@ -6,6 +6,8 @@
     --text: #333333;
     --text-light: #333333;
     --border: #dddddd;
+    --green: #2e7d32;
+    --red: #c62828;
 }
 
 body {
@@ -82,7 +84,7 @@ a:hover {
 }
 
 .feed-card h3 a {
-    color: var(--primary);
+    color: var(--text);
 }
 
 .feed-card h3 a:hover {
@@ -241,5 +243,113 @@ a:hover {
 
     .article-header h2 {
         font-size: 1.8em;
+    }
+}
+
+/* === FEED FORM === */
+.feed-form {
+    padding: 30px;
+    margin-top: 40px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.feed-form h2 {
+    margin-top: 0;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text);
+    font-family: "Times New Roman", serif;
+}
+
+.form-group input[type="url"],
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px;
+    border: 1px solid var(--text);
+    border-radius: 3px;
+    font-family: "Times New Roman", serif;
+    font-size: 1em;
+    transition: border-color 0.2s;
+}
+
+.form-group input[type="url"]:focus,
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.submit-btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 3px;
+    font-family: "Times New Roman", serif;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: 600;
+}
+
+.submit-btn:hover {
+    background-color: var(--accent);
+    color: var(--primary);
+}
+
+/* === FLASH MESSAGES === */
+.flash-message {
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    font-weight: 500;
+    font-family: "Times New Roman", serif;
+}
+
+.flash-message.success {
+    background-color: #e8f5e9;
+    color: var(--green);
+    border-left: 4px solid var(--green);
+}
+
+.flash-message.error {
+    background-color: #ffebee;
+    color: var(--red);
+    border-left: 4px solid var(--red);
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: var(--red);
+    padding: 12px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--red);
+    font-family: "Times New Roman", serif;
+}
+
+/* === RESPONSIVE FORM === */
+@media (max-width: 768px) {
+    .form-group input[type="url"],
+    .form-group input[type="text"],
+    .form-group textarea {
+        max-width: 100%;
     }
 }

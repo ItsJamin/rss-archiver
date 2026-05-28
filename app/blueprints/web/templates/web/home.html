@@ -3,17 +3,52 @@
 {% block title %}All Feeds{% endblock %}
 
 {% block content %}
+    {# Flash Messages #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <h2>Registered Feeds</h2>
     <div class="feed-list">
         {% for feed in feeds %}
             <div class="feed-card">
                 <h3><a href="{{ url_for('web.feed_detail', feed_id=feed.id) }}">{{ feed.title or feed.url }}</a></h3>
-                <p class="feed-description">{{ feed.description or "No description available." }}</p>
+                <p class="feed-description">{{ feed.description or "" }}</p>
                 <p class="feed-meta">
                     <span class="article-count">{{ feed.articles|length }} articles</span>
-                    <span class="feed-url">{{ feed.url }}</span>
+                    <a class="feed-url" href="{{ feed.url }}">{{ feed.url }}</a>
                 </p>
             </div>
         {% endfor %}
     </div>
+
+    <section class="feed-form">
+        <h2>Add New RSS Feed</h2>
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+        <form method="POST" action="{{ url_for('web.home') }}">
+            <div class="form-group">
+                <label for="url">Feed URL *</label>
+                <input type="url" id="url" name="url" required
+                       placeholder="https://example.com/feed.xml">
+            </div>
+            <div class="form-group">
+                <label for="title">Title (optional)</label>
+                <input type="text" id="title" name="title"
+                       placeholder="News ABC">
+            </div>
+            <div class="form-group">
+                <label for="description">Description (optional)</label>
+                <textarea id="description" name="description" rows="2"
+                          placeholder="A brief description of the feed..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Register Feed</button>
+        </form>
+    </section>
+
 {% endblock %}
