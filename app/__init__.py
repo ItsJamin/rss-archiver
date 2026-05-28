@@ -14,7 +14,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 
-def init_scheduler(app):
+def init_scheduler(app, hours, minutes):
     def fetch_job():
         with app.app_context():
             from .utils.rss_fetcher import fetch_all_feeds
@@ -24,8 +24,8 @@ def init_scheduler(app):
     scheduler.add_job(
         func=fetch_job,
         trigger="interval",
-        hours=0,
-        minutes=1,
+        hours=int(hours),
+        minutes=int(minutes),
         id="fetch_feeds",
         replace_existing=True
     )
@@ -40,6 +40,8 @@ def create_app(config_name="development"):
         SQLALCHEMY_DATABASE_URI = 'sqlite:///rss.db'
     )
 
+    app.config["SERVER_NAME"] = os.environ.get('SERVER_NAME', "localhost:54321")
+
     db.init_app(app)
     migrate.init_app(app, db, render_as_batch=True)
 
@@ -47,7 +49,7 @@ def create_app(config_name="development"):
 
     with app.app_context():
         db.create_all()
-        init_scheduler(app)
+        init_scheduler(app, hours=os.environ.get('S_HOURS', 3), minutes=os.environ.get('S_MINUTES', 0))
 
     # Register blueprints
     from .blueprints.web import web_bp
@@ -55,5 +57,8 @@ def create_app(config_name="development"):
 
     from .blueprints.api import api_bp
     app.register_blueprint(api_bp)
+
+    from .blueprints.rss import rss_bp
+    app.register_blueprint(rss_bp)
 
     return app
