@@ -113,3 +113,22 @@ def get_article_content(article_id):
         raise NotFound(f"Content file for article {article_id} not found")
     except Exception as e:
         raise BadRequest(f"Error reading content file: {str(e)}")
+
+@api_bp.route('/feeds/<int:feed_id>/fetch', methods=['POST'])
+def fetch_feed(feed_id):
+    from app.utils.rss_fetcher import fetch_and_store_feed
+    feed = Feed.query.get(feed_id)
+    if not feed:
+        raise NotFound(f"Feed with ID {feed_id} not found")
+
+    success = fetch_and_store_feed(feed_id)
+    if success:
+        return jsonify({'message': f'Feed {feed_id} fetched successfully'}), 200
+    else:
+        return jsonify({'error': f'Failed to fetch feed {feed_id}'}), 400
+
+@api_bp.route('/feeds/fetch-all', methods=['GET','POST'])
+def fetch_all_feeds():
+    from app.utils.rss_fetcher import fetch_all_feeds
+    fetch_all_feeds()
+    return jsonify({'message': 'All active feeds fetched successfully'}), 200

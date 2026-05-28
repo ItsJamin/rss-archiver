@@ -1,5 +1,7 @@
+import atexit
 import os
 
+from apscheduler.schedulers.background import BackgroundScheduler
 from dotenv import load_dotenv
 from flask import Flask
 from flask_migrate import Migrate
@@ -11,6 +13,24 @@ load_dotenv()
 db = SQLAlchemy()
 migrate = Migrate()
 
+
+def init_scheduler(app):
+    def fetch_job():
+        with app.app_context():
+            from .utils.rss_fetcher import fetch_all_feeds
+            fetch_all_feeds()
+
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(
+        func=fetch_job,
+        trigger="interval",
+        hours=0,
+        minutes=1,
+        id="fetch_feeds",
+        replace_existing=True
+    )
+    scheduler.start()
+    atexit.register(lambda: scheduler.shutdown())
 
 def create_app(config_name="development"):
     app = Flask(__name__)
@@ -27,6 +47,7 @@ def create_app(config_name="development"):
 
     with app.app_context():
         db.create_all()
+        init_scheduler(app)
 
     # Register blueprints
     from .blueprints.web import web_bp
