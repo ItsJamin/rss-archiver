@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5431:5431"
+    volumes:
+      - ./data:/app/data
+      - ./rss.db:/app/rss.db
+      - ./.env:/app/.env
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+    restart: unless-stopped
