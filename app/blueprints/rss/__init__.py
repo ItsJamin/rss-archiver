@@ -88,8 +88,8 @@ def _get_base_url():
 def today_rss_feed():
     start, end = _get_today_range()
     articles = Article.query.filter(
-        Article.fetched_at >= start,
-        Article.fetched_at < end
+        Article.publish_date >= start,
+        Article.publish_date < end
     ).order_by(func.coalesce(Article.publish_date, Article.fetched_at).desc()).all()
 
     base_url = _get_base_url()
@@ -106,8 +106,8 @@ def today_rss_feed():
 def week_rss_feed():
     start, end = _get_week_range()
     articles = Article.query.filter(
-        Article.fetched_at >= start,
-        Article.fetched_at < end
+        Article.publish_date >= start,
+        Article.publish_date < end
     ).order_by(func.coalesce(Article.publish_date, Article.fetched_at).desc()).all()
 
     base_url = _get_base_url()
