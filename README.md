@@ -15,6 +15,21 @@ cp .env.example .env
 
 edit .env if needed to change e.g. the fetch-schedule
 
+Example `docker-compose.yml`:
+```
+services:
+  web:
+    build: .
+    ports:
+      - "5431:5431"
+    volumes:
+      - ./:/app/
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+    restart: unless-stopped
+```
+
 ```
 docker compose build
 docker compose up -d

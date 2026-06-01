@@ -11,6 +11,7 @@ ENV FLASK_APP=run.py
 ENV FLASK_ENV=development
 
 RUN mkdir -p data/archives
+RUN mkdir -p instance/
 
 EXPOSE 5431
 
