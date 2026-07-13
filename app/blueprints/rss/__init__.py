@@ -20,9 +20,10 @@ def _get_today_range():
     today_start = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
     return today_start, today_start + timedelta(days=1)
 
-def _get_week_range():
+def _get_week_range(offset=0):
     today = datetime.utcnow()
     monday = today - timedelta(days=today.weekday())
+    monday = monday + timedelta(weeks=offset)
     monday = monday.replace(hour=0, minute=0, second=0, microsecond=0)
     return monday, monday + timedelta(days=7)
 
@@ -102,9 +103,11 @@ def today_rss_feed():
     )
     return Response(rss_xml, mimetype='application/rss+xml')
 
-@rss_bp.route("/week")
-def week_rss_feed():
-    start, end = _get_week_range()
+@rss_bp.route("/week", defaults={'offset': 0})
+@rss_bp.route("/week/<int:offset>")
+def week_rss_feed(offset):
+    start, end = _get_week_range(-offset)
+
     articles = Article.query.filter(
         Article.publish_date >= start,
         Article.publish_date < end
